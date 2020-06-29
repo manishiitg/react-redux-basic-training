@@ -2,20 +2,26 @@ import React, { useEffect, createContext } from 'react'
 
 import { connect } from 'react-redux'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector, shallowEqual } from 'react-redux'
 
 import { addTodoAction } from "./redux/actions/todo"
 
 import { createSelector } from 'reselect'
 
+import { callAPI } from "./redux/actions/api"
+
+
 const getTodoList = createSelector(
-    state => state,
+    state => state.todo,
     todos => todos.reverse()
 )
 
+const getAPIData = state => state.api
+
 function Todo(props) {
-    const todoList = useSelector(getTodoList)
+    const todoList = useSelector(getTodoList, shallowEqual)
     const dispatch = useDispatch()
+    const apiData = useSelector(getAPIData)
 
     useEffect(() => {
         console.log("re-render")
@@ -23,6 +29,7 @@ function Todo(props) {
 
     return (
         <div>
+            {apiData["loading"] ? "..." : apiData["data"]["value"]}
             <h1>Todo List</h1>
             <ul>
                 {
@@ -35,6 +42,13 @@ function Todo(props) {
             <button onClick={() => {
                 dispatch(addTodoAction("Todo " + todoList.length, false, new Date()))
             }}>Add Random Todo</button>
+
+            <button onClick={() => {
+
+                dispatch(callAPI())
+
+            }}>Test Count API</button>
+
         </div>
     )
 }

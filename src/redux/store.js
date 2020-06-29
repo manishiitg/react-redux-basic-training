@@ -1,7 +1,13 @@
 //src/redux/store.js
 
-import { createStore } from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
 
-import reducer from "./reducers/todo"
+import todo from "./reducers/todo"
+import api from './reducers/api'
 
-export default createStore(reducer)
+import thunk from 'redux-thunk';
+
+export default createStore(combineReducers({
+    todo,
+    api
+}), {}, applyMiddleware(thunk))
