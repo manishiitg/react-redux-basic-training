@@ -1,5 +1,7 @@
+//src/redux/store.js
+
 import { createStore } from 'redux'
 
 import reducer from "./reducers/todo"
 
-export default createStore(reducer, {})
+export default createStore(reducer)

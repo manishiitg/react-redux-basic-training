@@ -2,14 +2,14 @@
 
 import { TODO_ACTIONS } from "../actions/todo"
 
-const reducer = (todoList = [], action) => {
+const reducer = (todoList = [], action) => {    
     if (action.type === TODO_ACTIONS.ADD_TODO) {
         return [
             ...todoList,
             {
-                "text": action.text,
-                "completed": action.completed,
-                "duedate": action.duedate
+                "text": action.payload.text,
+                "completed": action.payload.completed,
+                "duedate": action.payload.duedate
             }
         ]
     }
