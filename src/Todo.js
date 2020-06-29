@@ -11,17 +11,16 @@ import { createSelector } from 'reselect'
 import { callAPI } from "./redux/actions/api"
 
 
+
 const getTodoList = createSelector(
     state => state.todo,
     todos => todos.reverse()
 )
 
-const getAPIData = state => state.api
-
 function Todo(props) {
     const todoList = useSelector(getTodoList, shallowEqual)
     const dispatch = useDispatch()
-    const apiData = useSelector(getAPIData)
+    const apiData = useSelector(state => state.api)
 
     useEffect(() => {
         console.log("re-render")
@@ -45,7 +44,8 @@ function Todo(props) {
 
             <button onClick={() => {
 
-                dispatch(callAPI())
+                // dispatch(callAPI())
+                dispatch({"type": "COUNT_FETCH_REQUESTED"})
 
             }}>Test Count API</button>
 
