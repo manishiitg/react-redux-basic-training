@@ -10,6 +10,8 @@ import { createSelector } from 'reselect'
 
 import { callAPI } from "./redux/actions/api"
 
+import Age from "./Age"
+
 
 
 const getTodoList = createSelector(
@@ -48,6 +50,9 @@ function Todo(props) {
                 dispatch({"type": "COUNT_FETCH_REQUESTED"})
 
             }}>Test Count API</button>
+
+
+            <Age />
 
         </div>
     )
